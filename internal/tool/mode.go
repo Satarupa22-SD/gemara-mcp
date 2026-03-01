@@ -59,6 +59,9 @@ func (a AdvisoryMode) Register(server *mcp.Server) {
 
 	// Schema documentation tool - retrieves schema documentation from CUE registry
 	mcp.AddTool(server, MetadataGetSchemaDocs, a.getSchemaDocs)
+
+	// Evidence pipeline tool - parses governance and config documents into schema candidates
+	mcp.AddTool(server, MetadataParseGovernanceDocument, ParseGovernanceDocument)
 }
 
 // getLexicon wraps GetLexicon with cache access and configuration.
