@@ -51,21 +51,15 @@ type InputParseGovernanceDocument struct {
 
 // OutputParseGovernanceDocument is the output for the ParseGovernanceDocument tool.
 type OutputParseGovernanceDocument struct {
-	// Candidates is the list of schema-aligned field proposals.
-	Candidates []evidence.SchemaCandidate `json:"candidates"`
-	// ParserUsed is the name of the parser that was selected.
-	ParserUsed string `json:"parser_used"`
-	// TotalChunks is the number of evidence chunks extracted before mapping.
-	TotalChunks int `json:"total_chunks"`
+	Candidates  []evidence.SchemaCandidate `json:"candidates"`
+	ParserUsed  string                     `json:"parser_used"`
+	TotalChunks int                        `json:"total_chunks"`
 }
 
-// defaultPipeline builds a Pipeline with all default parsers registered.
-// Parser order matters: more specific parsers (kubernetes, dockerfile) are
-// registered before generic ones (yaml, markdown) to avoid mis-detection.
+// defaultPipeline builds a Pipeline with all default parsers registered..
 func defaultPipeline() *evidence.Pipeline {
 	return evidence.NewPipeline(
 		parsers.NewKubernetesParser(),
-		parsers.NewDockerfileParser(),
 		parsers.NewMarkdownParser(),
 		parsers.NewYAMLParser(),
 	)
